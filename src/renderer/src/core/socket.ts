@@ -1,7 +1,20 @@
-import { SetWindowPositionData } from '@wm/shared/packet/data/data.set-window-position'
 import { io } from 'socket.io-client'
-import { Packet } from '@wm/shared/packet/packet'
 import type { Socket } from 'socket.io-client'
+
+export interface SetWindowPositionData {
+  x: number
+  y: number
+}
+
+export interface Packet<T> {
+  name: string
+  data: T
+}
+
+export function makePacket<T>(name: string, data: T): Packet<T> {
+  return { data, name }
+}
+
 
 export class WManagerSocket {
   private socket: Socket

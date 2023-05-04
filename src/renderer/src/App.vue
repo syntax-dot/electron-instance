@@ -16,12 +16,11 @@ const computedLayout = computed(() => {
 })
 
 onMounted(async () => {
-  const instancePosition = await window.electron?.ipcRenderer?.invoke(
+  const instancePosition = await window.electron.ipcRenderer.invoke(
     'get-instance-position'
   )
-
-  const wsocket = new WManagerSocket('http://localhost:4444', instancePosition ?? 1)
-  console.log('wsocket', wsocket);
+  console.log('instancePosition', instancePosition);
+  const wsocket = new WManagerSocket('http://localhost:4444', instancePosition)
 
   await wsocket.connect()
 })

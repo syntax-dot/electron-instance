@@ -1,37 +1,62 @@
-import { app, BrowserWindow, ipcMain, session, screen } from 'electron'
+import { app, BrowserWindow, ipcMain, session, screen, ipcRenderer } from 'electron'
 import { join } from 'path'
 
+export interface BrowserWindows {
+  id: string | number
+  display: string | number
+  instance: BrowserWindow
+}
+
+export let windows: BrowserWindows[] = []
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
-    webPreferences: {
-      preload: join(__dirname, 'preload.js'),
-      nodeIntegration: false,
-      contextIsolation: true,
-      devTools: true
-    },
+  const displays = screen.getAllDisplays()
 
-    frame: false,
-    movable: false,
-    maximizable: true,
-    minimizable: false,
+  const newWindow = (bounds: Electron.Rectangle) => {
+    return new BrowserWindow({
+      x: bounds.x,
+      y: bounds.y,
+      width: bounds.width,
+      height: bounds.height,
+      webPreferences: {
+        preload: join(__dirname, 'preload.js'),
+        nodeIntegration: false,
+        contextIsolation: true,
+        devTools: true
+      },
+      frame: false,
+      movable: false,
+      maximizable: true,
+      minimizable: false,
+      fullscreen: true,
+      titleBarStyle: 'hidden'
+    })
+  }
 
-    fullscreen: true,
+  for (let [index, display] of displays.entries()) {
 
-    titleBarStyle: 'hidden'
-  })
+    windows.push({
+      id: +index,
+      display: display.label,
+      instance: newWindow(display.bounds)
+    })
+  }
+
 
   if (process.env.NODE_ENV === 'development') {
     const rendererPort = process.argv[2]
     const rendererUrl = `http://localhost:${rendererPort}`
-    mainWindow.loadURL(rendererUrl)
+    windows.forEach(window => window.instance.loadURL(rendererUrl))
   } else {
     const indexHtml = join(app.getAppPath(), 'renderer', 'index.html')
-    mainWindow.loadFile(indexHtml)
+    windows.forEach(window => window.instance.loadFile(indexHtml))
   }
 }
 
 app.whenReady().then(() => {
   createWindow()
+  console.log('windows', windows);
+
 
   const filter = {
     urls: ['http://localhost:4444/*', 'http://127.0.0.1:4444/*']
@@ -78,15 +103,17 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-ipcMain.handle('set-bounds', async (event, { x, y }) => {
-  const [window] = BrowserWindow.getAllWindows()
-  window.setBounds({ x, y })
+ipcMain.on('set-bounds', (event, id, { x, y }) => {
+  const X = +x
+  const Y = +y
+
+  return windows[id].instance.setBounds({ x: X, y: Y })
+})
+
+ipcMain.handle('get-id', async (event) => {
+  return windows[event.processId - 4].id;
 })
 
 ipcMain.handle('get-instance-position', async (event) => {
-  const args = process.argv
-  const position = args
-    .find((a) => a.startsWith('--position='))
-    ?.replace('--position=', '')
-  return position
+  return windows[event.processId - 4].instance.getPosition()
 })
