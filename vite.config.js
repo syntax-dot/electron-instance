@@ -2,7 +2,6 @@ import mkcert from 'vite-plugin-mkcert'
 
 const vue = require('@vitejs/plugin-vue')
 const path = require('path')
-
 const { defineConfig } = require('vite')
 
 const pathSrc = path.resolve(__dirname, path.join('src', 'renderer', 'src'))
