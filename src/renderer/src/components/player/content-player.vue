@@ -25,6 +25,7 @@ defineProps<ContentPlayerProps>()
 
   &__video {
     height: 100vh;
+    object-fit: cover;
   }
 
   &__mini {

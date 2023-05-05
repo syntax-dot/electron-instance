@@ -4,7 +4,7 @@ import ContentPlayer from '~/components/player/content-player.vue';
 import { MonitorContent, getContent } from '~/utils/getContent';
 
 const id = ref<null| number>(null)
-const instancePosition = ref< 'mini' | 'maxi' | 'full'>('mini')
+const instancePosition = ref(null)
 const queue = ref(1)
 
 const leftContent = ref<MonitorContent | null | undefined>(null)
@@ -56,5 +56,7 @@ function handleClick() {
 <style scoped lang="scss">
 .main {
   display: flex;
+
+
 }
 </style>
