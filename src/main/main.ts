@@ -36,7 +36,7 @@ function createWindow() {
   for (let [index, display] of displays.entries()) {
 
     windows.push({
-      id: +index,
+      id: index + 1,
       display: display.label,
       instance: newWindow(display.bounds)
     })

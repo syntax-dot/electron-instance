@@ -1,0 +1,96 @@
+[
+  {
+      "queue" : 1,
+      "event_type": "start",
+      "monitor_id": 1,
+      "half": "left",
+      "screen_type": "mini",
+      "media_type": "video",
+      "media": "Morocco.mp4"
+  },
+  {
+      "queue" : 1,
+      "event_type": "start",
+      "monitor_id": 1,
+      "half": "right",
+      "screen_type": "maxi",
+      "media_type": "video",
+      "media": "COSTARICA.mp4"
+  },
+  {
+      "queue" : 2,
+      "event_type": "stop",
+      "monitor_id": 1,
+      "half": "left"
+  },
+  {
+      "queue" : 3,
+      "event_type": "start",
+      "monitor_id": 1,
+      "half": "left",
+      "screen_type": "maxi",
+      "media_type": "video",
+      "media": "Morocco.mp4"
+  },
+  {
+      "queue" : 3,
+      "event_type": "start",
+      "monitor_id": 1,
+      "half": "right",
+      "screen_type": "mini",
+      "media_type": "image",
+      "media": "cat.jpg"
+  },
+  {
+    "queue" : 1,
+    "event_type": "start",
+    "monitor_id": 2,
+    "half": "left",
+    "screen_type": "mini",
+    "media_type": "video",
+    "media": "COSTARICA.mp4"
+    },
+    {
+        "queue" : 1,
+        "event_type": "start",
+        "monitor_id": 2,
+        "half": "right",
+        "screen_type": "maxi",
+        "media_type": "image",
+        "media": "cat.jpg"
+    },
+    {
+        "queue" : 2,
+        "event_type": "start",
+        "monitor_id": 2,
+        "half": "right",
+        "screen_type": "maxi",
+        "media_type": "image",
+        "media": "cat.jpg"
+    },
+    {
+        "queue" : 2,
+        "event_type": "stop",
+        "screen_type": "maxi",
+        "monitor_id": 2,
+        "half": "left"
+    },
+    {
+        "queue" : 3,
+        "event_type": "start",
+        "monitor_id": 2,
+        "half": "left",
+        "screen_type": "maxi",
+        "media_type": "video",
+        "media": "Morocco.mp4"
+    },
+    {
+        "queue" : 3,
+        "event_type": "start",
+        "monitor_id": 2,
+        "half": "right",
+        "screen_type": "mini",
+        "media_type": "image",
+        "media": "cat.jpg"
+    }
+]

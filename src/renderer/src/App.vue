@@ -19,10 +19,10 @@ onMounted(async () => {
   const instancePosition = await window.electron.ipcRenderer.invoke(
     'get-instance-position'
   )
-  console.log('instancePosition', instancePosition);
-  const wsocket = new WManagerSocket('http://localhost:4444', instancePosition)
+  // console.log('instancePosition', instancePosition);
+  // const wsocket = new WManagerSocket('http://localhost:4444', instancePosition)
 
-  await wsocket.connect()
+  // await wsocket.connect()
 })
 </script>
 
